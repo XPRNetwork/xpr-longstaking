@@ -1,0 +1,177 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
+    "version": "eosio::abi/1.1",
+    "types": [],
+    "structs": [
+        {
+            "name": "Plan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "oracle_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "plan_days",
+                    "type": "uint64"
+                },
+                {
+                    "name": "multiplier",
+                    "type": "float32"
+                },
+                {
+                    "name": "is_active",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "Stake",
+            "base": "",
+            "fields": [
+                {
+                    "name": "index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "plan_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "start_time",
+                    "type": "time_point"
+                },
+                {
+                    "name": "staked",
+                    "type": "asset"
+                },
+                {
+                    "name": "oracle_price",
+                    "type": "float64"
+                }
+            ]
+        },
+        {
+            "name": "addplan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "oracle_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "plan_days",
+                    "type": "uint64"
+                },
+                {
+                    "name": "multiplier",
+                    "type": "float32"
+                },
+                {
+                    "name": "is_active",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "claimstake",
+            "base": "",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "stake_index",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "cleanup",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "pauseplan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "plan_index",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "startstake",
+            "base": "",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "plan_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "addplan",
+            "type": "addplan",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Add Plan\nsummary: 'Add Plan'\nicon:\n---\n."
+        },
+        {
+            "name": "claimstake",
+            "type": "claimstake",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Claim Stake\nsummary: 'Claim Stake'\nicon:\n---\n."
+        },
+        {
+            "name": "cleanup",
+            "type": "cleanup",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cleanup\nsummary: 'Cleanup'\nicon:\n---\n."
+        },
+        {
+            "name": "pauseplan",
+            "type": "pauseplan",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Pause Plan\nsummary: 'Pause Plan'\nicon:\n---\n."
+        },
+        {
+            "name": "startstake",
+            "type": "startstake",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Start Stake\nsummary: 'Start Stake'\nicon:\n---\n."
+        }
+    ],
+    "tables": [
+        {
+            "name": "plans",
+            "type": "Plan",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stakes",
+            "type": "Stake",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": []
+}
