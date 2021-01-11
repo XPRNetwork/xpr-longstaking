@@ -11,7 +11,7 @@ namespace proton {
     uint64_t index;
     uint64_t oracle_index;
     uint64_t plan_days;
-    float multiplier;
+    uint64_t multiplier;
     bool is_active;
     uint64_t primary_key() const { return index; };
   };

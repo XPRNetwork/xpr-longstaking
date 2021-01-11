@@ -30,35 +30,18 @@ namespace proton {
     ACTION addplan (
       const uint64_t& oracle_index,
       const uint64_t& plan_days,
-      const float& multiplier,
+      const uint64_t& multiplier,
       const bool& is_active
     );
-    ACTION pauseplan (const uint64_t& plan_index);
-    ACTION startstake (
-      const name& account,
+    ACTION changeoracle (
       const uint64_t& plan_index,
-      const asset& quantity
+      const uint64_t& oracle_index
     );
+    ACTION pauseplan (const uint64_t& plan_index);
     ACTION claimstake (
       const name& account,
       const uint64_t stake_index
     );
-
-    ACTION cleanup () {
-      require_auth(get_self());
-      
-      plan_table db(get_self(), get_self().value);
-      auto itr = db.end();
-      while(db.begin() != itr){
-        itr = db.erase(--itr);
-      }
-
-      stake_table db2(get_self(), get_self().value);
-      auto itr2 = db2.end();
-      while(db2.begin() != itr2){
-        itr2 = db2.erase(--itr2);
-      }
-    }
 
     // This function will be called when the contract is notified of incoming or outgoing transfer actions from any contract
     [[eosio::on_notify("eosio.token::transfer")]]
@@ -81,6 +64,11 @@ namespace proton {
     stake_table _stakes;
 
   private:
+    void startstake (
+      const name& account,
+      const uint64_t& plan_index,
+      const asset& quantity
+    );
     double get_oracle_price(const uint64_t& oracle_index);
   };
 }

@@ -21,7 +21,7 @@
                 },
                 {
                     "name": "multiplier",
-                    "type": "float32"
+                    "type": "uint64"
                 },
                 {
                     "name": "is_active",
@@ -73,11 +73,25 @@
                 },
                 {
                     "name": "multiplier",
-                    "type": "float32"
+                    "type": "uint64"
                 },
                 {
                     "name": "is_active",
                     "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "changeoracle",
+            "base": "",
+            "fields": [
+                {
+                    "name": "plan_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "oracle_index",
+                    "type": "uint64"
                 }
             ]
         },
@@ -96,35 +110,12 @@
             ]
         },
         {
-            "name": "cleanup",
-            "base": "",
-            "fields": []
-        },
-        {
             "name": "pauseplan",
             "base": "",
             "fields": [
                 {
                     "name": "plan_index",
                     "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "startstake",
-            "base": "",
-            "fields": [
-                {
-                    "name": "account",
-                    "type": "name"
-                },
-                {
-                    "name": "plan_index",
-                    "type": "uint64"
-                },
-                {
-                    "name": "quantity",
-                    "type": "asset"
                 }
             ]
         }
@@ -136,24 +127,19 @@
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Add Plan\nsummary: 'Add Plan'\nicon:\n---\n."
         },
         {
+            "name": "changeoracle",
+            "type": "changeoracle",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Change Oracle\nsummary: 'Change Oracle'\nicon:\n---\n."
+        },
+        {
             "name": "claimstake",
             "type": "claimstake",
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Claim Stake\nsummary: 'Claim Stake'\nicon:\n---\n."
         },
         {
-            "name": "cleanup",
-            "type": "cleanup",
-            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cleanup\nsummary: 'Cleanup'\nicon:\n---\n."
-        },
-        {
             "name": "pauseplan",
             "type": "pauseplan",
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Pause Plan\nsummary: 'Pause Plan'\nicon:\n---\n."
-        },
-        {
-            "name": "startstake",
-            "type": "startstake",
-            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Start Stake\nsummary: 'Start Stake'\nicon:\n---\n."
         }
     ],
     "tables": [

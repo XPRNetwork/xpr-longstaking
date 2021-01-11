@@ -5,19 +5,31 @@ using namespace std;
 
 namespace proton {
   struct data_variant {
-    optional<string> d_string;
-    optional<uint64_t> d_uint64_t;
-    optional<double> d_double;
+    std::optional<std::string> d_string;
+    std::optional<uint64_t> d_uint64_t;
+    std::optional<double> d_double;
 
     data_variant () {};
-    data_variant (string val) { d_string = val; };
+    data_variant (std::string val) { d_string = val; };
     data_variant (uint64_t val) { d_uint64_t = val; };
     data_variant (double val) { d_double = val; };
     
-    bool operator < ( const data_variant& rhs ) const { return true; }
-    bool operator > ( const data_variant& rhs ) const { return true; }
+    bool operator < ( const data_variant& rhs ) const {
+      std::string data_type = this->data_type();
+      eosio::check(this->data_type() == rhs.data_type(), "not equivalent data types");
+      if (data_type == "string") {
+        return this->get<std::string>() < rhs.get<std::string>();
+      } else if (data_type == "uint64_t") {
+        return this->get<uint64_t>() < rhs.get<uint64_t>();
+      } else if (data_type == "double") {
+        return this->get<double>() < rhs.get<double>();
+      } else {
+        eosio::check(false, "invalid data_variant <");
+        return false;
+      }
+    }
 
-    string data_type ()const {
+    std::string data_type ()const {
       if (d_string.has_value()) {
         return "string";
       } else if (d_uint64_t.has_value()) {
@@ -25,22 +37,25 @@ namespace proton {
       } else if (d_double.has_value()) {
         return "double";
       } else {
-        check(false, "invalid data_variant type");
+        eosio::check(false, "invalid data_variant type");
         return {};
       }
     };
 
     template<typename T>
     T get ()const {
-      string data_type = this->data_type();
-      if constexpr (is_same<T, string>::value && data_type == "string") {
+      std::string data_type = this->data_type();
+      if constexpr (std::is_same<T, std::string>::value) {
+        eosio::check(data_type == "string", "invalid data_variant get");
         return *d_string;
-      } else if (is_same<T, uint64_t>::value && data_type == "uint64_t") {
+      } else if constexpr (std::is_same<T, uint64_t>::value) {
+        eosio::check(data_type == "uint64_t", "invalid data_variant get");
         return *d_uint64_t;
-      } else if (is_same<T, double>::value && data_type == "double") {
+      } else if constexpr (std::is_same<T, double>::value) {
+        eosio::check(data_type == "double", "invalid data_variant get");
         return *d_double;
       } else {
-        check(false, "invalid data_variant get");
+        eosio::check(false, "invalid data_variant get");
         return {};
       }
     };

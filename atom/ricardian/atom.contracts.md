@@ -38,13 +38,14 @@ icon:
 ---
 .
 
-<h1 class="contract">cleanup</h1>
+<h1 class="contract">changeoracle</h1>
 
 ---
 spec_version: "0.2.0"
-title: Cleanup
-summary: 'Cleanup'
+title: Change Oracle
+summary: 'Change Oracle'
 icon:
 ---
 .
+
 
