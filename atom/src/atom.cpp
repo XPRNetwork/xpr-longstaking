@@ -5,7 +5,7 @@ namespace proton
   void atom::addplan (
     const uint64_t& oracle_index,
     const uint64_t& plan_days,
-    const float& multiplier,
+    const uint64_t& multiplier,
     const bool& is_active
   ) {
     require_auth(get_self());
@@ -15,6 +15,17 @@ namespace proton
       p.plan_days = plan_days;
       p.multiplier = multiplier;
       p.is_active = is_active;
+    });
+  }
+
+  void atom::changeoracle (
+    const uint64_t& plan_index,
+    const uint64_t& oracle_index
+  ) {
+    require_auth(get_self());
+    auto plan = _plans.require_find(plan_index, "plan not found");
+    _plans.modify(plan, same_payer, [&](auto& p) {
+      p.oracle_index = oracle_index;
     });
   }
 
@@ -67,11 +78,11 @@ namespace proton
 
     // Calculate claimable amount
     auto claimable = stake->staked;
-    claimable.amount = (uint64_t)(stake->staked.amount * plan->multiplier);
+    claimable.amount = (stake->staked.amount * plan->multiplier) / MULTIPLIER_PRECISION;
 
     // Get oracle price
     double current_oracle_price = get_oracle_price(plan->oracle_index);
-    double target_oracle_price = stake->oracle_price * plan->multiplier;
+    double target_oracle_price = (stake->oracle_price * plan->multiplier) / MULTIPLIER_PRECISION;
 
     // Issue tokens if needed
     asset payout = {0, SYSTEM_TOKEN_SYMBOL};
@@ -81,10 +92,10 @@ namespace proton
 
       // Issue tokens
       asset extra_payout = {payout.amount - stake->staked.amount, SYSTEM_TOKEN_SYMBOL};
-      issue_action i_action(SYSTEM_TOKEN_CONTRACT, {get_self(), "active"_n} );
+      issue_action i_action(SYSTEM_TOKEN_CONTRACT, {SYSTEM_CONTRACT, SYSTEM_CONTRACT_PERMISSION} );
       i_action.send(SYSTEM_CONTRACT, extra_payout, "Long Stake Internal Issue");
 
-      transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {get_self(), "active"_n} );
+      transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {SYSTEM_CONTRACT, SYSTEM_CONTRACT_PERMISSION} );
       t_action.send(SYSTEM_CONTRACT, get_self(), extra_payout, "Long Stake Internal Transfer");
     } else {
       // Payout initial staked amount
@@ -100,8 +111,8 @@ namespace proton
   }
 
   double atom::get_oracle_price(const uint64_t& oracle_index) {
-    auto d_table = data_table(ORACLE_CONTRACT, get_self().value);
-    auto oracle_data = d_table.require_find(oracle_index);
+    auto d_table = data_table(ORACLE_CONTRACT, ORACLE_CONTRACT.value);
+    auto oracle_data = d_table.require_find(oracle_index, "oracle not found");
     return oracle_data->aggregate.get<double>(); 
   }
 } // namepsace contract
