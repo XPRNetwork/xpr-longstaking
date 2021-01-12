@@ -1,7 +1,7 @@
 module.exports = {
     apps : [
       {
-        name: 'proton-longstaking-bots',
+        name: 'proton-longstaking-testnet-bots',
         script: 'dist/index.js',
         node_args : '-r dotenv/config',
         watch: false,
