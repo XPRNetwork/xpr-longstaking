@@ -2,4 +2,4 @@
 
 ## Directory
 - atom: Smart Contracts
-- js_tests: JS Tests
+- server: Oracle Feed for XPR/BTC
