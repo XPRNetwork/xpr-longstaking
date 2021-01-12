@@ -31,10 +31,10 @@ export const ORACLES: {
     }
 } = CHAIN === 'proton'
     ? {
-        2: { oracleIndex: 2, waitTime: 86400, priceFunction: getXprBtcPrice }
+        2: { oracleIndex: 2, waitTime: 5 * 60 * 1000, priceFunction: getXprBtcPrice }
     }
     : {
-        2: { oracleIndex: 2, waitTime: 86400, priceFunction: getXprBtcPrice }
+        2: { oracleIndex: 2, waitTime: 5 * 60 * 1000, priceFunction: getXprBtcPrice }
     }
 
 export const ORACLE = ORACLES[ORACLE_INDEX]
