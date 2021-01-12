@@ -12,7 +12,7 @@ if (!ORACLE_INDEX) {
     console.error('No ORACLE_INDEX provided')
     process.exit(0)
 }
-if (!process.env.PRIVATE_KEY) {
+if (!PRIVATE_KEYS.length) {
     console.error('No PRIVATE_KEY provided in .env')
     process.exit(0)
 }
@@ -43,9 +43,20 @@ if (!ORACLE) {
     process.exit(0)
 }
 
-export const BOTS_ACCOUNTS: Serialize.Authorization[] = [
-    { actor: 'bot1', permission: 'active' },
-    { actor: 'bot2', permission: 'active' },
-    { actor: 'bot3', permission: 'active' },
-    { actor: 'bot4', permission: 'active' }
-]
+export const BOTS_ACCOUNTS: Serialize.Authorization[] = []
+if (!process.env.ACCOUNTS) {
+    console.error('No ACCOUNTS provided')
+    process.exit(0)
+}
+for (const accountPermission of process.env.ACCOUNTS.split(',')) {
+    let [actor, permission] = accountPermission.split('@')
+    if (!actor) {
+        console.error('No actor provided')
+        process.exit(0)
+    }
+    if (!permission) {
+        permission = 'active'
+    }
+    BOTS_ACCOUNTS.push({ actor, permission })
+}
+console.log(BOTS_ACCOUNTS)
