@@ -1,8 +1,0 @@
-{
-    "currentNetwork": {
-        "chain": "proton",
-        "endpoints": [
-            "https://proton.greymass.com"
-        ]
-    }
-}
