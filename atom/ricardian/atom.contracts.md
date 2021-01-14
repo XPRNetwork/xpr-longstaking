@@ -58,4 +58,39 @@ icon:
 ---
 .
 
+<h1 class="contract">changeprice</h1>
+
+---
+spec_version: "0.2.0"
+title: Change Price
+summary: 'Change Price'
+icon:
+---
+.
+
+
+<h1 class="contract">cancelstake</h1>
+
+---
+spec_version: "0.2.0"
+title: Cancel Stake
+summary: 'Cancel Stake'
+icon:
+---
+.
+
+
+
+<h1 class="contract">cleanup</h1>
+
+---
+spec_version: "0.2.0"
+title: Cleanup
+summary: 'Cleanup'
+icon:
+---
+.
+
+
+
 
