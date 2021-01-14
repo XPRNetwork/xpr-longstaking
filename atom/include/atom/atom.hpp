@@ -38,10 +38,24 @@ namespace proton {
       const uint64_t& plan_index,
       const uint64_t& oracle_index
     );
-    ACTION setplanstake (const uint64_t& plan_index, const bool& is_stake_active);
-    ACTION setplanclaim (const uint64_t& plan_index, const bool& is_claim_active);
+    ACTION changeprice (
+      const uint64_t& stake_index,
+      const double& oracle_price
+    );
+    ACTION setplanstake (
+      const uint64_t& plan_index,
+      const bool& is_stake_active
+    );
+    ACTION setplanclaim (
+      const uint64_t& plan_index,
+      const bool& is_claim_active
+    );
 
     ACTION claimstake (
+      const name& account,
+      const uint64_t stake_index
+    );
+    ACTION cancelstake (
       const name& account,
       const uint64_t stake_index
     );
@@ -54,9 +68,8 @@ namespace proton {
       while(db.begin() != itr){
         itr = db.erase(--itr);
       }
-    }
+    };
     
-
     // This function will be called when the contract is notified of incoming or outgoing transfer actions from any contract
     [[eosio::on_notify("eosio.token::transfer")]]
     void ontransfer   ( const name& from,

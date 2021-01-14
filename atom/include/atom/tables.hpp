@@ -7,7 +7,7 @@ namespace proton {
   /**
    * PLAN
    */
-  struct [[eosio::table, eosio::contract("atom")]] Plan{
+  struct [[eosio::table, eosio::contract("atom")]] Plan {
     uint64_t index;
     uint64_t oracle_index;
     uint64_t plan_days;
@@ -21,7 +21,7 @@ namespace proton {
   /**
    * STAKE
    */
-  struct [[eosio::table, eosio::contract("atom")]] Stake{
+  struct [[eosio::table, eosio::contract("atom")]] Stake {
     uint64_t index;
     uint64_t plan_index;
     name account;
@@ -31,7 +31,7 @@ namespace proton {
 
     uint64_t by_account() const {return account.value;};
     uint64_t end_time(const uint64_t& plan_days) const { return start_time.sec_since_epoch() + (plan_days * SECONDS_PER_DAY); };
-    bool is_claimable(const uint64_t& plan_days) const { return current_time_point().sec_since_epoch() > end_time(plan_days); };
+    bool past_end_time(const uint64_t& plan_days) const { return current_time_point().sec_since_epoch() >= end_time(plan_days); };
     uint64_t primary_key() const { return index; };
   };
   typedef multi_index< "stakes"_n, Stake,

@@ -90,6 +90,20 @@
             ]
         },
         {
+            "name": "cancelstake",
+            "base": "",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "stake_index",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "changeoracle",
             "base": "",
             "fields": [
@@ -100,6 +114,20 @@
                 {
                     "name": "oracle_index",
                     "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "changeprice",
+            "base": "",
+            "fields": [
+                {
+                    "name": "stake_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "oracle_price",
+                    "type": "float64"
                 }
             ]
         },
@@ -158,9 +186,19 @@
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Add Plan\nsummary: 'Add Plan'\nicon:\n---\n."
         },
         {
+            "name": "cancelstake",
+            "type": "cancelstake",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cancel Stake\nsummary: 'Cancel Stake'\nicon:\n---\n."
+        },
+        {
             "name": "changeoracle",
             "type": "changeoracle",
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Change Oracle\nsummary: 'Change Oracle'\nicon:\n---\n."
+        },
+        {
+            "name": "changeprice",
+            "type": "changeprice",
+            "ricardian_contract": ""
         },
         {
             "name": "claimstake",
@@ -170,7 +208,7 @@
         {
             "name": "cleanup",
             "type": "cleanup",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cleanup\nsummary: 'Cleanup'\nicon:\n---\n."
         },
         {
             "name": "setplanclaim",

@@ -31,6 +31,18 @@ namespace proton
     });
   }
 
+  void atom::changeprice (
+    const uint64_t& stake_index,
+    const double& oracle_price
+  ) {
+    require_auth(get_self());
+    
+    auto stake = _stakes.require_find(stake_index, "stake not found");
+    _stakes.modify(stake, same_payer, [&](auto& s) {
+      s.oracle_price = oracle_price;
+    });
+  }
+
   void atom::setplanstake (const uint64_t& plan_index, const bool& is_stake_active) {
     require_auth(get_self());
 
@@ -56,7 +68,7 @@ namespace proton
   ) {
     // Verification
     check(quantity.is_valid(), "invalid quantity");
-    check(quantity.amount > 0, "quantity must be positive");
+    check(quantity >= MINIMUM_STAKE, "minimum stake quantity is " + MINIMUM_STAKE.to_string());
 
     // Find Plan
     auto plan = _plans.require_find(plan_index, "plan not found");
@@ -85,7 +97,8 @@ namespace proton
 
     // Validate
     check(plan->is_claim_active, "plan is not available to be claimed");
-    check(stake->is_claimable(plan->plan_days), "stake has not ended yet.");
+    check(stake->past_end_time(plan->plan_days), "stake has not ended yet.");
+    check(account == stake->account, "invalid claiming account");
 
     // Calculate claimable amount
     auto claimable = stake->staked;
@@ -96,15 +109,19 @@ namespace proton
     double target_oracle_price = (stake->oracle_price * plan->multiplier) / MULTIPLIER_PRECISION;
 
     // Issue tokens if needed
-    asset payout = {0, SYSTEM_TOKEN_SYMBOL};
+    asset payout = asset(0, SYSTEM_TOKEN_SYMBOL);
     if (current_oracle_price < target_oracle_price) {
       // Calculate payout
-      payout.amount = static_cast<uint64_t>((target_oracle_price / current_oracle_price) * stake->staked.amount);
+      check(current_oracle_price != 0, "invalid current oracle price");
+      double oracle_ratio = target_oracle_price / current_oracle_price;
+      check(oracle_ratio < ORACLE_RATIO_MAX, "oracle ratio too high");
+      payout.amount = static_cast<uint64_t>(oracle_ratio * stake->staked.amount);
 
       // Issue tokens
-      asset extra_payout = {payout.amount - stake->staked.amount, SYSTEM_TOKEN_SYMBOL};
+      uint64_t extra_payout_amount = payout.amount - stake->staked.amount;
+      asset extra_payout = asset(extra_payout_amount, SYSTEM_TOKEN_SYMBOL);
       issue_action i_action(SYSTEM_TOKEN_CONTRACT, {SYSTEM_CONTRACT, SYSTEM_CONTRACT_PERMISSION} );
-      i_action.send(SYSTEM_CONTRACT, extra_payout, "Long Stake Internal Issue");
+      i_action.send(SYSTEM_CONTRACT, extra_payout, "Long Stake Internal Tokens Issue");
 
       transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {SYSTEM_CONTRACT, SYSTEM_CONTRACT_PERMISSION} );
       t_action.send(SYSTEM_CONTRACT, get_self(), extra_payout, "Long Stake Internal Transfer");
@@ -118,6 +135,28 @@ namespace proton
     t_action.send(get_self(), stake->account, payout, "Long Stake Claim Payout!");
 
     // Erase stake
+    _stakes.erase(stake);
+  }
+
+  void atom::cancelstake (
+    const name& account,
+    const uint64_t stake_index
+  ) {
+    require_auth(account);
+
+    // Find stake and plan
+    auto stake = _stakes.require_find(stake_index, "stake not found");
+    auto plan = _plans.require_find(stake->plan_index, "plan not found");
+
+    // Validate
+    check(stake->past_end_time(plan->plan_days), "stake has not ended yet.");
+    check(account == stake->account, "invalid claiming account");
+    
+    // Refund
+    transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {SYSTEM_CONTRACT, SYSTEM_CONTRACT_PERMISSION} );
+    t_action.send(get_self(), stake->account, stake->staked, "Long Stake - Cancel Stake");
+
+    // End stake
     _stakes.erase(stake);
   }
 
