@@ -12,7 +12,8 @@ namespace proton {
     uint64_t oracle_index;
     uint64_t plan_days;
     uint64_t multiplier;
-    bool is_active;
+    bool is_stake_active;
+    bool is_claim_active;
     uint64_t primary_key() const { return index; };
   };
   typedef multi_index<"plans"_n, Plan> plan_table;

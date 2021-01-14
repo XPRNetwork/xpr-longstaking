@@ -6,7 +6,8 @@ namespace proton
     const uint64_t& oracle_index,
     const uint64_t& plan_days,
     const uint64_t& multiplier,
-    const bool& is_active
+    const bool& is_stake_active,
+    const bool& is_claim_active
   ) {
     require_auth(get_self());
     _plans.emplace(get_self(), [&](auto& p) {
@@ -14,7 +15,8 @@ namespace proton
       p.oracle_index = oracle_index;
       p.plan_days = plan_days;
       p.multiplier = multiplier;
-      p.is_active = is_active;
+      p.is_stake_active = is_stake_active;
+      p.is_claim_active = is_claim_active;
     });
   }
 
@@ -29,12 +31,21 @@ namespace proton
     });
   }
 
-  void atom::pauseplan (const uint64_t& plan_index) {
+  void atom::setplanstake (const uint64_t& plan_index, const bool& is_stake_active) {
     require_auth(get_self());
 
     auto plan = _plans.require_find(plan_index, "plan not found");
     _plans.modify(plan, same_payer, [&](auto& p) {
-      p.is_active = false;
+      p.is_stake_active = is_stake_active;
+    });
+  }
+
+  void atom::setplanclaim (const uint64_t& plan_index, const bool& is_claim_active) {
+    require_auth(get_self());
+
+    auto plan = _plans.require_find(plan_index, "plan not found");
+    _plans.modify(plan, same_payer, [&](auto& p) {
+      p.is_claim_active = is_claim_active;
     });
   }
 
@@ -49,7 +60,7 @@ namespace proton
 
     // Find Plan
     auto plan = _plans.require_find(plan_index, "plan not found");
-    check(plan->is_active, "plan is not active");
+    check(plan->is_stake_active, "plan is not available to be staked to");
 
     // New Stake
     _stakes.emplace(get_self(), [&](auto& t) {
@@ -73,7 +84,7 @@ namespace proton
     auto plan = _plans.require_find(stake->plan_index, "plan not found");
 
     // Validate
-    check(plan->is_active, "plan is not active");
+    check(plan->is_claim_active, "plan is not available to be claimed");
     check(stake->is_claimable(plan->plan_days), "stake has not ended yet.");
 
     // Calculate claimable amount

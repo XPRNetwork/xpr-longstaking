@@ -31,17 +31,31 @@ namespace proton {
       const uint64_t& oracle_index,
       const uint64_t& plan_days,
       const uint64_t& multiplier,
-      const bool& is_active
+      const bool& is_stake_active,
+      const bool& is_claim_active
     );
     ACTION changeoracle (
       const uint64_t& plan_index,
       const uint64_t& oracle_index
     );
-    ACTION pauseplan (const uint64_t& plan_index);
+    ACTION setplanstake (const uint64_t& plan_index, const bool& is_stake_active);
+    ACTION setplanclaim (const uint64_t& plan_index, const bool& is_claim_active);
+
     ACTION claimstake (
       const name& account,
       const uint64_t stake_index
     );
+
+    ACTION cleanup () {
+      require_auth(get_self());
+      
+      plan_table db(get_self(), get_self().value);
+      auto itr = db.end();
+      while(db.begin() != itr){
+        itr = db.erase(--itr);
+      }
+    }
+    
 
     // This function will be called when the contract is notified of incoming or outgoing transfer actions from any contract
     [[eosio::on_notify("eosio.token::transfer")]]

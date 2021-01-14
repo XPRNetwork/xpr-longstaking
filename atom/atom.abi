@@ -24,7 +24,11 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "is_active",
+                    "name": "is_stake_active",
+                    "type": "bool"
+                },
+                {
+                    "name": "is_claim_active",
                     "type": "bool"
                 }
             ]
@@ -76,7 +80,11 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "is_active",
+                    "name": "is_stake_active",
+                    "type": "bool"
+                },
+                {
+                    "name": "is_claim_active",
                     "type": "bool"
                 }
             ]
@@ -110,12 +118,35 @@
             ]
         },
         {
-            "name": "pauseplan",
+            "name": "cleanup",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "setplanclaim",
             "base": "",
             "fields": [
                 {
                     "name": "plan_index",
                     "type": "uint64"
+                },
+                {
+                    "name": "is_claim_active",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "setplanstake",
+            "base": "",
+            "fields": [
+                {
+                    "name": "plan_index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "is_stake_active",
+                    "type": "bool"
                 }
             ]
         }
@@ -137,9 +168,19 @@
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Claim Stake\nsummary: 'Claim Stake'\nicon:\n---\n."
         },
         {
-            "name": "pauseplan",
-            "type": "pauseplan",
-            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Pause Plan\nsummary: 'Pause Plan'\nicon:\n---\n."
+            "name": "cleanup",
+            "type": "cleanup",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setplanclaim",
+            "type": "setplanclaim",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Set Plan Claim\nsummary: 'Set Plan Claim'\nicon:\n---\n."
+        },
+        {
+            "name": "setplanstake",
+            "type": "setplanstake",
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Set Plan Stake\nsummary: 'Set Plan Stake'\nicon:\n---\n."
         }
     ],
     "tables": [
