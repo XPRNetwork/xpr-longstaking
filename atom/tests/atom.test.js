@@ -194,7 +194,7 @@ describe(LONG_STAKING, () => {
     await token.contract.transfer({
       from: user.accountName,
       to: staking.accountName,
-      quantity: '1.0000 XPR',
+      quantity: '100.0000 XPR',
       memo: '0' // plan_index
     }, [{ actor: user.accountName, permission: 'active' }])
 
@@ -205,7 +205,7 @@ describe(LONG_STAKING, () => {
         plan_index: "0",
         account: user.accountName,
         start_time: stakes[0].start_time,
-        staked: '1.0000 XPR',
+        staked: '100.0000 XPR',
         oracle_price: 0.000123
       }]
     );
@@ -252,7 +252,7 @@ describe(LONG_STAKING, () => {
     await token.contract.transfer({
       from: user.accountName,
       to: staking.accountName,
-      quantity: '1.0000 XPR',
+      quantity: '100.0000 XPR',
       memo: '0' // plan_index
     }, [{ actor: user.accountName, permission: 'active' }])
 
@@ -325,7 +325,7 @@ describe(LONG_STAKING, () => {
     await token.contract.transfer({
       from: user.accountName,
       to: staking.accountName,
-      quantity: '1.0000 XPR',
+      quantity: '100.0000 XPR',
       memo: '0' // plan_index
     }, [{ actor: user.accountName, permission: 'active' }])
 
@@ -352,7 +352,7 @@ describe(LONG_STAKING, () => {
     const balances = token.getTableRowsScoped('accounts')[user.accountName]
     expect(balances).toEqual(
       [{
-        balance: "1000001.9758 XPR"
+        balance: "1000197.5806 XPR"
       }]
     );
   });
