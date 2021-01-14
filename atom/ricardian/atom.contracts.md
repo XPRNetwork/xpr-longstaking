@@ -8,12 +8,22 @@ icon:
 ---
 .
 
-<h1 class="contract">pauseplan</h1>
+<h1 class="contract">setplanstake</h1>
 
 ---
 spec_version: "0.2.0"
-title: Pause Plan
-summary: 'Pause Plan'
+title: Set Plan Stake
+summary: 'Set Plan Stake'
+icon:
+---
+.
+
+<h1 class="contract">setplanclaim</h1>
+
+---
+spec_version: "0.2.0"
+title: Set Plan Claim
+summary: 'Set Plan Claim'
 icon:
 ---
 .

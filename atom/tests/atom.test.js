@@ -69,7 +69,8 @@ describe(LONG_STAKING, () => {
       oracle_index: "0",
       plan_days: "1",
       multiplier: "150",
-      is_active: true
+      is_stake_active: true,
+      is_claim_active: true
     }
     await staking.contract.addplan(plan);
 
@@ -88,7 +89,8 @@ describe(LONG_STAKING, () => {
       oracle_index: "0",
       plan_days: "1",
       multiplier: "150",
-      is_active: true
+      is_stake_active: true,
+      is_claim_active: true
     });
     await staking.contract.changeoracle({
       plan_index: 0,
@@ -101,21 +103,23 @@ describe(LONG_STAKING, () => {
         oracle_index: "1",
         plan_days: "1",
         multiplier: "150",
-        is_active: true
+        is_stake_active: true,
+        is_claim_active: true
       }]
     );
   });
 
-  it("Pause Plan (pauseplan)", async () => {
+  it("Pause Staking (setplanstake)", async () => {
     expect.assertions(1);
 
     await staking.contract.addplan({
       oracle_index: "0",
       plan_days: "1",
       multiplier: "150",
-      is_active: true
+      is_stake_active: true,
+      is_claim_active: true
     });
-    await staking.contract.pauseplan({ plan_index: 0 })
+    await staking.contract.setplanstake({ plan_index: 0, is_stake_active: false });
 
     expect(staking.getTableRowsScoped(`plans`)[LONG_STAKING]).toEqual(
       [{
@@ -123,7 +127,32 @@ describe(LONG_STAKING, () => {
         oracle_index: "0",
         plan_days: "1",
         multiplier: "150",
-        is_active: false
+        is_stake_active: false,
+        is_claim_active: true
+      }]
+    );
+  });
+
+  it("Pause Claiming (pausestakes)", async () => {
+    expect.assertions(1);
+
+    await staking.contract.addplan({
+      oracle_index: "0",
+      plan_days: "1",
+      multiplier: "150",
+      is_stake_active: true,
+      is_claim_active: true
+    });
+    await staking.contract.setplanclaim({ plan_index: 0, is_claim_active: false });
+
+    expect(staking.getTableRowsScoped(`plans`)[LONG_STAKING]).toEqual(
+      [{
+        index: "0",
+        oracle_index: "0",
+        plan_days: "1",
+        multiplier: "150",
+        is_stake_active: true,
+        is_claim_active: false
       }]
     );
   });
@@ -158,7 +187,8 @@ describe(LONG_STAKING, () => {
       oracle_index: "0",
       plan_days: "1",
       multiplier: "150",
-      is_active: true
+      is_stake_active: true,
+      is_claim_active: true
     });
 
     await token.contract.transfer({
@@ -214,7 +244,8 @@ describe(LONG_STAKING, () => {
       oracle_index: "0",
       plan_days: "1",
       multiplier: "150",
-      is_active: true
+      is_stake_active: true,
+      is_claim_active: true
     });
 
     // Start stake
@@ -286,7 +317,8 @@ describe(LONG_STAKING, () => {
       oracle_index: "0",
       plan_days: "1",
       multiplier: "150",
-      is_active: true
+      is_stake_active: true,
+      is_claim_active: true
     });
 
     // Start stake
