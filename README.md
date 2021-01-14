@@ -22,7 +22,7 @@ We’ve built this oracle technology already and you can see it live at http://p
 The oracle code is available at https://github.com/ProtonProtocol/proton-oracle.
 
 ## Mathematics
-Now, given a daily close of O(x) of Proton in Sats (100 millionth of a BTC), by “long staking” for 90 days, the contract will either return back
+Now, given a daily close of O(x) of Proton in BTC, by “long staking” for 90 days, the contract will either return back
 M = 105% * O(start)/O(end) as many proton XPR tokens as were staked. or the exact number of proton XPR tokens staked.
 
 The amount returned depends only on whether M > 1 or not.
