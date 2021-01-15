@@ -1,7 +1,7 @@
 cleospt push action longstaking addplan '{
         "oracle_index": "2",
         "plan_days": "1",
-        "multiplier": "101",
+        "multiplier": "150",
         "is_stake_active": true,
         "is_claim_active": true
 }' -p longstaking;
