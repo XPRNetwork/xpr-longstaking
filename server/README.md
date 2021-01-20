@@ -20,9 +20,9 @@ npm i -g pm2
 npm i && npm run build
 ```
 
-4. Rename .example.env to .env and set private key and accounts
-
-5. Run oracle
+4. Rename .example.env to .env and set private key
+5. Edit testnet.config.js and mainnet.config.js with your accounts and endpoints
+6. Run oracle
 
 ```sh
 # Testnet
