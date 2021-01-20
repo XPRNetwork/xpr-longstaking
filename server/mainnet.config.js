@@ -1,3 +1,16 @@
+const endpoints = [
+  "https://proton.eoscafeblock.com",
+  "https://proton.eosusa.news",
+  "https://proton.cryptolions.io",
+  "https://proton.pink.gg"
+]
+const accounts = [
+  'bot1@active',
+  'bot2@active',
+  'bot3@active' ,
+  'bot4@active'
+]
+
 module.exports = {
     apps : [
       {
@@ -7,7 +20,9 @@ module.exports = {
         watch: false,
         env: {
           'CHAIN': 'proton',
-          'ORACLE_INDEX': 2
+          'ORACLE_INDEX': 2,
+          'ENDPOINTS': endpoints.join(','),
+          'ACCOUNTS': accounts.join(','),
         }
       }
     ]

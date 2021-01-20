@@ -1,3 +1,14 @@
+const endpoints = [
+  "https://testnet.protonchain.com",
+  "https://testnet.proton.pink.gg"
+]
+const accounts = [
+  'bot1@active',
+  'bot2@active',
+  'bot3@active' ,
+  'bot4@active'
+]
+
 module.exports = {
     apps : [
       {
@@ -7,7 +18,9 @@ module.exports = {
         watch: false,
         env: {
           'CHAIN': 'proton-test',
-          'ORACLE_INDEX': 2
+          'ORACLE_INDEX': 2,
+          'ENDPOINTS': endpoints.join(','),
+          'ACCOUNTS': accounts.join(','),
         }
       }
     ]

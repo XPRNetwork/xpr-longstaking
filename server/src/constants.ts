@@ -1,26 +1,26 @@
 import { Serialize } from "@protonprotocol/protonjs"
 import { getXprBtcPrice } from "./price"
 
-export const CHAIN = process.env.CHAIN
-export const ORACLE_INDEX = process.env.ORACLE_INDEX
-export const PRIVATE_KEYS = [process.env.PRIVATE_KEY]
-if (!CHAIN) {
+if (!process.env.CHAIN) {
     console.error('No CHAIN provided')
     process.exit(0)
 }
-if (!ORACLE_INDEX) {
+if (!process.env.ORACLE_INDEX) {
     console.error('No ORACLE_INDEX provided')
     process.exit(0)
 }
-if (!PRIVATE_KEYS.length) {
-    console.error('No PRIVATE_KEY provided in .env')
+if (!process.env.PRIVATE_KEYS) {
+    console.error('No PRIVATE_KEYS provided in .env')
     process.exit(0)
 }
-
-export const ENDPOINTS = CHAIN === 'proton'
-    ? ["https://proton.eoscafeblock.com", "https://proton.eosusa.news", "https://proton.cryptolions.io", "https://proton.pink.gg", "https://proton.eoscafeblock.com"]
-    : ["https://testnet.protonchain.com", "https://testnet.proton.pink.gg"]
-
+if (!process.env.ENDPOINTS) {
+    console.error('No ENDPOINTS provided in .env')
+    process.exit(0)
+}
+export const CHAIN = process.env.CHAIN
+export const ORACLE_INDEX = process.env.ORACLE_INDEX
+export const PRIVATE_KEYS = process.env.PRIVATE_KEYS.split(',')
+export const ENDPOINTS = process.env.ENDPOINTS.split(',')
 
 export const ORACLE_CONTRACT = "oracles"
 export const ORACLES: {

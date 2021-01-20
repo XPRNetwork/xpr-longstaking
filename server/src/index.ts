@@ -39,7 +39,11 @@ const process = async (authorization: Serialize.Authorization) => {
     })
     return result
   } catch (e) {
-    console.log(e)
+    if (e.json && e.json.error && e.json.error.details) {
+      console.error(e.json.error.details[0].message)
+    } else {
+      console.error(e)
+    }
   }
 }
 
