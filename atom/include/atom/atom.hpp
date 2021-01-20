@@ -55,6 +55,11 @@ namespace proton {
       const name& account,
       const uint64_t stake_index
     );
+    ACTION stakereceipt (
+      const Stake& stake
+    ) {
+      require_auth(get_self());
+    };
     ACTION cancelstake (
       const name& account,
       const uint64_t stake_index
@@ -85,6 +90,7 @@ namespace proton {
     // Action wrappers
     using transfer_action = action_wrapper<"transfer"_n, &atom::ontransfer>;
     using issue_action    = action_wrapper<"issue"_n,    &atom::issue>;
+    using stakereceipt_action = action_wrapper<"stakereceipt"_n, &atom::stakereceipt>;
 
     // Initialize tables from tables.hpp
     plan_table _plans;

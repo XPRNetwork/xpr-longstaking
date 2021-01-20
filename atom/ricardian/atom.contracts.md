@@ -68,6 +68,17 @@ icon:
 ---
 .
 
+<h1 class="contract">stakereceipt</h1>
+
+---
+spec_version: "0.2.0"
+title: Stake Receipt
+summary: 'Stake Receipt'
+icon:
+---
+.
+
+
 
 <h1 class="contract">cancelstake</h1>
 

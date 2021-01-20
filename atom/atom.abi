@@ -177,6 +177,16 @@
                     "type": "bool"
                 }
             ]
+        },
+        {
+            "name": "stakereceipt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "stake",
+                    "type": "Stake"
+                }
+            ]
         }
     ],
     "actions": [
@@ -198,7 +208,7 @@
         {
             "name": "changeprice",
             "type": "changeprice",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Change Price\nsummary: 'Change Price'\nicon:\n---\n."
         },
         {
             "name": "claimstake",
@@ -219,6 +229,11 @@
             "name": "setplanstake",
             "type": "setplanstake",
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Set Plan Stake\nsummary: 'Set Plan Stake'\nicon:\n---\n."
+        },
+        {
+            "name": "stakereceipt",
+            "type": "stakereceipt",
+            "ricardian_contract": ""
         }
     ],
     "tables": [

@@ -134,6 +134,10 @@ namespace proton
     transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {get_self(), "active"_n} );
     t_action.send(get_self(), stake->account, payout, "Long Stake Claim Payout!");
 
+    // Receipt
+    stakereceipt_action sr_action(get_self(), {get_self(), "active"_n} );
+    sr_action.send(*stake);
+
     // Erase stake
     _stakes.erase(stake);
   }
