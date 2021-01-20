@@ -15,7 +15,7 @@ With Bitcoin making significant strides, and now reaching new all time highs, Pr
 Lock up tokens for an extended period and get a protected return denominated in BTC
 
 ## Oracles
-In thinking this through, we came up with new cutting-edge tokenomics leveraging a 10-day weighted on-chain oracle average for the price of Proton in terms of Bitcoin.
+In thinking this through, we came up with new cutting-edge tokenomics leveraging a 14-day weighted on-chain oracle average for the price of Proton in terms of Bitcoin.
 
 We’ve built this oracle technology already and you can see it live at http://protonresources.com/bots. 
 
