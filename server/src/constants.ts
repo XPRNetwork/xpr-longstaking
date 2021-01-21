@@ -2,11 +2,11 @@ import { Serialize } from "@protonprotocol/protonjs"
 import { getXprBtcPrice } from "./price"
 
 if (!process.env.CHAIN) {
-    console.error('No CHAIN provided')
+    console.error('No CHAIN provided in *.config.js')
     process.exit(0)
 }
 if (!process.env.ORACLE_INDEX) {
-    console.error('No ORACLE_INDEX provided')
+    console.error('No ORACLE_INDEX provided in *.config.js')
     process.exit(0)
 }
 if (!process.env.PRIVATE_KEYS) {
@@ -14,7 +14,7 @@ if (!process.env.PRIVATE_KEYS) {
     process.exit(0)
 }
 if (!process.env.ENDPOINTS) {
-    console.error('No ENDPOINTS provided in .env')
+    console.error('No ENDPOINTS provided in *.config.js')
     process.exit(0)
 }
 export const CHAIN = process.env.CHAIN
