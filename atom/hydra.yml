@@ -9,4 +9,6 @@ contracts:
     wasm: oracles.wasm
     abi: oracles.abi
     fixturesDir: tests/fixtures/oracles
-options: null
+options:
+  serverBaseUrl: 'http://3.96.155.129:8888'
+  skipAuth: false
