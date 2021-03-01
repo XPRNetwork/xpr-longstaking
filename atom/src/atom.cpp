@@ -157,7 +157,7 @@ namespace proton
     check(account == stake->account, "invalid claiming account");
     
     // Refund
-    transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {SYSTEM_CONTRACT, SYSTEM_CONTRACT_PERMISSION} );
+    transfer_action t_action(SYSTEM_TOKEN_CONTRACT, {get_self(), "active"_n} );
     t_action.send(get_self(), stake->account, stake->staked, "Long Stake - Cancel Stake");
 
     // End stake

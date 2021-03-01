@@ -65,16 +65,6 @@ namespace proton {
       const uint64_t stake_index
     );
 
-    ACTION cleanup () {
-      require_auth(get_self());
-      
-      plan_table db(get_self(), get_self().value);
-      auto itr = db.end();
-      while(db.begin() != itr){
-        itr = db.erase(--itr);
-      }
-    };
-    
     // This function will be called when the contract is notified of incoming or outgoing transfer actions from any contract
     [[eosio::on_notify("eosio.token::transfer")]]
     void ontransfer   ( const name& from,

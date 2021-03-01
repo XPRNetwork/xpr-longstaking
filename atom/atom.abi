@@ -146,11 +146,6 @@
             ]
         },
         {
-            "name": "cleanup",
-            "base": "",
-            "fields": []
-        },
-        {
             "name": "setplanclaim",
             "base": "",
             "fields": [
@@ -216,11 +211,6 @@
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Claim Stake\nsummary: 'Claim Stake'\nicon:\n---\n."
         },
         {
-            "name": "cleanup",
-            "type": "cleanup",
-            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Cleanup\nsummary: 'Cleanup'\nicon:\n---\n."
-        },
-        {
             "name": "setplanclaim",
             "type": "setplanclaim",
             "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Set Plan Claim\nsummary: 'Set Plan Claim'\nicon:\n---\n."
@@ -233,7 +223,7 @@
         {
             "name": "stakereceipt",
             "type": "stakereceipt",
-            "ricardian_contract": ""
+            "ricardian_contract": "---\nspec_version: \"0.2.0\"\ntitle: Stake Receipt\nsummary: 'Stake Receipt'\nicon:\n---\n."
         }
     ],
     "tables": [
