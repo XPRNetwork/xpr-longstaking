@@ -89,7 +89,7 @@ namespace proton
     const name& account,
     const uint64_t stake_index
   ) {
-    require_auth(account);
+    check(has_auth(account) || has_auth(get_self()), "invalid auth");
 
     // Find stake and plan
     auto stake = _stakes.require_find(stake_index, "stake not found");
