@@ -54,7 +54,7 @@ const xprOracle = async () => {
     const oracles = await getAllOracles()
     const xprOracle = oracles.find((_: any) => _.feed_index === 3)
     const btcOracle = oracles.find((_: any) => _.feed_index === 4)
-    return xprOracle.data.d_double / btcOracle.data.d_double
+    return xprOracle.aggregate.d_double / btcOracle.aggregate.d_double
 }
 
 const xprBtcHitbtc = async () => {
