@@ -52,6 +52,7 @@ const xprBtcBithumb = async () => {
 
 const xprOracle = async () => {
     const oracles = await getAllOracles()
+    console.log('oracles', oracles)
     const xprOracle = oracles.find((_: any) => _.feed_index === 3)
     const btcOracle = oracles.find((_: any) => _.feed_index === 4)
     return xprOracle.aggregate.d_double / btcOracle.aggregate.d_double
