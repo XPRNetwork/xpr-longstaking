@@ -57,15 +57,15 @@ const xprOracle = async () => {
     return xprOracle.aggregate.d_double / btcOracle.aggregate.d_double
 }
 
-const xprBtcHitbtc = async () => {
-    const hitbtc = new ccxt.hitbtc()
-    const xprBtc = await hitbtc.fetchTicker('XPR/BTC')
-    return xprBtc.vwap || xprBtc.close || xprBtc.last
-}
+// const xprBtcHitbtc = async () => {
+//     const hitbtc = new ccxt.hitbtc()
+//     const xprBtc = await hitbtc.fetchTicker('XPR/BTC')
+//     return xprBtc.vwap || xprBtc.close || xprBtc.last
+// }
 
 export const getXprBtcPrice = async () => {
     const prices = []
-    const sources = [xprBtcCoingecko, xprBtcBithumb, xprOracle, xprBtcHitbtc]
+    const sources = [xprBtcCoingecko, xprBtcBithumb, xprOracle]
 
     // Get all prices
     for (const source of sources) {
