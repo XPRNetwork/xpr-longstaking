@@ -45,6 +45,8 @@ export const getXprBtcPrice = async () => {
         }
     }
 
+    console.log(prices)
+
     // Remove outliers
     const { notOutliers } = new Stats(prices).findOutliers()
 
