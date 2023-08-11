@@ -2,7 +2,7 @@ import { Api, JsonRpc, JsSignatureProvider, Serialize } from '@protonprotocol/pr
 import fetch from 'node-fetch'
 import { ENDPOINTS, PRIVATE_KEYS, BOTS_ACCOUNTS, ORACLE, ORACLE_CONTRACT } from './constants'
 
-const rpc = new JsonRpc(ENDPOINTS, { fetch: fetch })
+export const rpc = new JsonRpc(ENDPOINTS, { fetch: fetch })
 const api = new Api({ rpc, signatureProvider: new JsSignatureProvider(PRIVATE_KEYS as any) })
 
 const wait = async (ms: number) => new Promise(resolve => setTimeout(resolve, ms))

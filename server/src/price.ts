@@ -1,9 +1,37 @@
 import fetch from 'node-fetch'
 import Stats from './outlier'
 import ccxt from 'ccxt'
+import { rpc } from './index'
+
+async function getAllOracles(
+    lower_bound: any = undefined
+): Promise<any> {
+    try {
+        const { rows, more, next_key } = await rpc.get_table_rows({
+          code: "oracles",
+          scope: "oracles",
+          table: "feeds",
+          limit: -1,
+          lower_bound,
+        });
+        if (more) {
+          const restOfRows: any = await getAllOracles(next_key);
+          return rows.concat(restOfRows);
+        } else {
+          return rows;
+        }
+      } catch (e) {
+        console.log(e);
+        return [];
+      }
+}
+
+const coingeckoApiKey = 'CG-QmWbqX1k4XY9FMXd1Mbm5cWY'
 
 const xprBtcCoingecko = async () => {
-    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=proton&vs_currencies=BTC`)
+    const res = await fetch(
+       `https://api.coingecko.com/api/v3/simple/price?ids=proton&vs_currencies=BTC&x_cg_pro_api_key=${coingeckoApiKey}`
+    )
     const json = await res.json()
     return Number(json['proton']['btc'])
 }
@@ -22,6 +50,13 @@ const xprBtcBithumb = async () => {
     }
 }
 
+const xprOracle = async () => {
+    const oracles = await getAllOracles()
+    const xprOracle = oracles.find((_: any) => _.feed_index === 3)
+    const btcOracle = oracles.find((_: any) => _.feed_index === 4)
+    return xprOracle.data.d_double / btcOracle.data.d_double
+}
+
 const xprBtcHitbtc = async () => {
     const hitbtc = new ccxt.hitbtc()
     const xprBtc = await hitbtc.fetchTicker('XPR/BTC')
@@ -30,7 +65,7 @@ const xprBtcHitbtc = async () => {
 
 export const getXprBtcPrice = async () => {
     const prices = []
-    const sources = [xprBtcCoingecko, xprBtcBithumb, xprBtcHitbtc]
+    const sources = [xprBtcCoingecko, xprBtcBithumb, xprOracle, xprBtcHitbtc]
 
     // Get all prices
     for (const source of sources) {
@@ -45,7 +80,7 @@ export const getXprBtcPrice = async () => {
         }
     }
 
-    console.log(prices)
+    console.log('prices', prices)
 
     // Remove outliers
     const { notOutliers } = new Stats(prices).findOutliers()
