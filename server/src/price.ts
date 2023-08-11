@@ -30,7 +30,7 @@ const coingeckoApiKey = 'CG-QmWbqX1k4XY9FMXd1Mbm5cWY'
 
 const xprBtcCoingecko = async () => {
     const res = await fetch(
-       `https://api.coingecko.com/api/v3/simple/price?ids=proton&vs_currencies=BTC&x_cg_pro_api_key=${coingeckoApiKey}`
+       `https://pro-api.coingecko.com/api/v3/simple/price?ids=proton&vs_currencies=BTC&x_cg_pro_api_key=${coingeckoApiKey}`
     )
     const json = await res.json()
     return Number(json['proton']['btc'])
@@ -87,7 +87,7 @@ export const getXprBtcPrice = async () => {
 
     console.log('outliers', outliers)
     console.log('notOutliers', notOutliers)
-    
+
     // Take mean
     const mean = new Stats(notOutliers).mean()
     console.log('XPR/BTC:', mean)
