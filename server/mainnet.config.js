@@ -1,8 +1,8 @@
 const endpoints = [
+  "https://mainnet-rpc.api.protondex.com",
   "https://proton.eoscafeblock.com",
   "https://proton.eosusa.news",
-  "https://proton.cryptolions.io",
-  "https://proton.pink.gg"
+  "https://proton.cryptolions.io"
 ]
 const accounts = [
   'bot1@active',
