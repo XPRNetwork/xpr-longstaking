@@ -83,8 +83,11 @@ export const getXprBtcPrice = async () => {
     console.log('prices', prices)
 
     // Remove outliers
-    const { notOutliers } = new Stats(prices).findOutliers()
+    const { outliers, notOutliers } = new Stats(prices).findOutliers()
 
+    console.log('outliers', outliers)
+    console.log('notOutliers', notOutliers)
+    
     // Take mean
     const mean = new Stats(notOutliers).mean()
     console.log('XPR/BTC:', mean)
