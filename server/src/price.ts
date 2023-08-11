@@ -3,19 +3,19 @@ import Stats from './outlier'
 import ccxt from 'ccxt'
 import { rpc } from './index'
 
-async function getAllOracles(
+async function getAllOraclesData(
     lower_bound: any = undefined
 ): Promise<any> {
     try {
         const { rows, more, next_key } = await rpc.get_table_rows({
           code: "oracles",
           scope: "oracles",
-          table: "feeds",
+          table: "data",
           limit: -1,
           lower_bound,
         });
         if (more) {
-          const restOfRows: any = await getAllOracles(next_key);
+          const restOfRows: any = await getAllOraclesData(next_key);
           return rows.concat(restOfRows);
         } else {
           return rows;
@@ -51,8 +51,7 @@ const xprBtcBithumb = async () => {
 }
 
 const xprOracle = async () => {
-    const oracles = await getAllOracles()
-    console.log('oracles', oracles)
+    const oracles = await getAllOraclesData()
     const xprOracle = oracles.find((_: any) => _.feed_index === 3)
     const btcOracle = oracles.find((_: any) => _.feed_index === 4)
     return xprOracle.aggregate.d_double / btcOracle.aggregate.d_double
