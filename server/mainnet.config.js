@@ -1,7 +1,7 @@
 const endpoints = [
-  "https://mainnet-rpc.api.protondex.com",
-  "https://proton.eoscafeblock.com",
-  "https://proton.eosusa.news",
+  "https://rpc.api.mainnet.metalx.com",
+  "https://api.protonnz.com",
+  "https://proton.eosusa.io",
   "https://proton.cryptolions.io"
 ]
 const accounts = [
