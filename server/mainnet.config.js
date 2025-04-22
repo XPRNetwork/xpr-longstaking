@@ -18,6 +18,7 @@ module.exports = {
         script: 'dist/index.js',
         node_args : '-r dotenv/config',
         watch: false,
+        log_date_format: 'YYYY-MM-DD HH:mm Z',
         env: {
           'CHAIN': 'proton',
           'ORACLE_INDEX': 2,
